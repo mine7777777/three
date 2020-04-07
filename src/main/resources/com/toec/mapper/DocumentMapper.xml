@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.toec.mapper.DocumentMapper">
+  <resultMap id="BaseResultMap" type="com.toec.po.Document">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="version" jdbcType="VARCHAR" property="version" />
+    <result column="createtime" jdbcType="VARCHAR" property="createtime" />
+    <result column="modifytime" jdbcType="VARCHAR" property="modifytime" />
+    <result column="publish" jdbcType="VARCHAR" property="publish" />
+    <result column="application" jdbcType="VARCHAR" property="application" />
+    <result column="secret" jdbcType="VARCHAR" property="secret" />
+    <result column="cipher" jdbcType="VARCHAR" property="cipher" />
+    <result column="location" jdbcType="VARCHAR" property="location" />
+    <result column="qrid" jdbcType="VARCHAR" property="qrid" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, name, version, createtime, modifytime, publish, application, secret, cipher, 
+    location, qrid
+  </sql>
+  <select id="selectByExample" parameterType="com.toec.po.DocumentExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from document
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from document
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from document
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.toec.po.DocumentExample">
+    delete from document
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.toec.po.Document">
+    insert into document (id, name, version, 
+      createtime, modifytime, publish, 
+      application, secret, cipher, 
+      location, qrid)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{version,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=VARCHAR}, #{modifytime,jdbcType=VARCHAR}, #{publish,jdbcType=VARCHAR}, 
+      #{application,jdbcType=VARCHAR}, #{secret,jdbcType=VARCHAR}, #{cipher,jdbcType=VARCHAR}, 
+      #{location,jdbcType=VARCHAR}, #{qrid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.toec.po.Document">
+    insert into document
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
+      <if test="modifytime != null">
+        modifytime,
+      </if>
+      <if test="publish != null">
+        publish,
+      </if>
+      <if test="application != null">
+        application,
+      </if>
+      <if test="secret != null">
+        secret,
+      </if>
+      <if test="cipher != null">
+        cipher,
+      </if>
+      <if test="location != null">
+        location,
+      </if>
+      <if test="qrid != null">
+        qrid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="modifytime != null">
+        #{modifytime,jdbcType=VARCHAR},
+      </if>
+      <if test="publish != null">
+        #{publish,jdbcType=VARCHAR},
+      </if>
+      <if test="application != null">
+        #{application,jdbcType=VARCHAR},
+      </if>
+      <if test="secret != null">
+        #{secret,jdbcType=VARCHAR},
+      </if>
+      <if test="cipher != null">
+        #{cipher,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null">
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="qrid != null">
+        #{qrid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.toec.po.DocumentExample" resultType="java.lang.Long">
+    select count(*) from document
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update document
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.version != null">
+        version = #{record.version,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createtime != null">
+        createtime = #{record.createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modifytime != null">
+        modifytime = #{record.modifytime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.publish != null">
+        publish = #{record.publish,jdbcType=VARCHAR},
+      </if>
+      <if test="record.application != null">
+        application = #{record.application,jdbcType=VARCHAR},
+      </if>
+      <if test="record.secret != null">
+        secret = #{record.secret,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cipher != null">
+        cipher = #{record.cipher,jdbcType=VARCHAR},
+      </if>
+      <if test="record.location != null">
+        location = #{record.location,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qrid != null">
+        qrid = #{record.qrid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update document
+    set id = #{record.id,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      version = #{record.version,jdbcType=VARCHAR},
+      createtime = #{record.createtime,jdbcType=VARCHAR},
+      modifytime = #{record.modifytime,jdbcType=VARCHAR},
+      publish = #{record.publish,jdbcType=VARCHAR},
+      application = #{record.application,jdbcType=VARCHAR},
+      secret = #{record.secret,jdbcType=VARCHAR},
+      cipher = #{record.cipher,jdbcType=VARCHAR},
+      location = #{record.location,jdbcType=VARCHAR},
+      qrid = #{record.qrid,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.toec.po.Document">
+    update document
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="modifytime != null">
+        modifytime = #{modifytime,jdbcType=VARCHAR},
+      </if>
+      <if test="publish != null">
+        publish = #{publish,jdbcType=VARCHAR},
+      </if>
+      <if test="application != null">
+        application = #{application,jdbcType=VARCHAR},
+      </if>
+      <if test="secret != null">
+        secret = #{secret,jdbcType=VARCHAR},
+      </if>
+      <if test="cipher != null">
+        cipher = #{cipher,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null">
+        location = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="qrid != null">
+        qrid = #{qrid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.toec.po.Document">
+    update document
+    set name = #{name,jdbcType=VARCHAR},
+      version = #{version,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=VARCHAR},
+      modifytime = #{modifytime,jdbcType=VARCHAR},
+      publish = #{publish,jdbcType=VARCHAR},
+      application = #{application,jdbcType=VARCHAR},
+      secret = #{secret,jdbcType=VARCHAR},
+      cipher = #{cipher,jdbcType=VARCHAR},
+      location = #{location,jdbcType=VARCHAR},
+      qrid = #{qrid,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
