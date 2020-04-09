@@ -237,6 +237,7 @@
                 $('#software').datagrid('endEdit', index)
             }
             //再获取结束编辑后所选行的row
+            
             var selectedRowAfter = $("#software").datagrid('getSelected');
             $.ajax({
                 url: '/software/add',
