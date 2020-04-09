@@ -204,9 +204,19 @@
 
 
         function insertHard(row) {
+            //获取所选行的row
+            var selectedRow = $("#hardware").datagrid('getSelected');
+            //让所选行结束编辑
+            if (selectedRow) {
+                var index = $('#hardware').datagrid('getRowIndex', selectedRow);
+                $('#hardware').datagrid('endEdit', index)
+            }
+            //再获取结束编辑后所选行的row
+            var selectedRowAfter = $("#hardware").datagrid('getSelected');
+
             $.ajax({
                 url: '/hardware/in',
-                data: row,
+                data: selectedRowAfter,
                 success: function (data) {
                     if (data == 'success') {
                         $.messager.alert('信息提示', '修改成功！', 'info');
@@ -219,9 +229,18 @@
         }
 
         function insertSoft(row) {
+            //获取所选行的row
+            var selectedRow = $("#software").datagrid('getSelected');
+            //让所选行结束编辑
+            if (selectedRow) {
+                var index = $('#software').datagrid('getRowIndex', selectedRow);
+                $('#software').datagrid('endEdit', index)
+            }
+            //再获取结束编辑后所选行的row
+            var selectedRowAfter = $("#software").datagrid('getSelected');
             $.ajax({
                 url: '/software/add',
-                data: row,
+                data: selectedRowAfter,
                 success: function (data) {
                     if (data == 'success') {
                         $.messager.alert('信息提示', '修改成功！', 'info');
@@ -234,9 +253,19 @@
         }
 
         function insertDocument(row) {
+            //获取所选行的row
+            var selectedRow = $("#document").datagrid('getSelected');
+            //让所选行结束编辑
+            if (selectedRow) {
+                var index = $('#document').datagrid('getRowIndex', selectedRow);
+                $('#document').datagrid('endEdit', index)
+            }
+            //再获取结束编辑后所选行的row
+            var selectedRowAfter = $("#document").datagrid('getSelected');
+
             $.ajax({
                 url: '/document/add',
-                data: row,
+                data: selectedRowAfter,
                 success: function (data) {
                     if (data == 'success') {
                         $.messager.alert('信息提示', '修改成功！', 'info');
