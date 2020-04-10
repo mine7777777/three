@@ -7,5 +7,4 @@ public class GlobalCon {
 
     public static final List<DevInfo>  CONNECTIONS_DEV = new CopyOnWriteArrayList<>();
 
-
 }

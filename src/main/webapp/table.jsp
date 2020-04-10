@@ -154,14 +154,19 @@
             var tab = $('#tabs').tabs('getSelected');
             var index = $('#tabs').tabs('getTabIndex', tab);
             var rows;
-            if (index == 0)
+            if (index == 0) {
                 rows = $("#hardware").datagrid("getRows");
-            if (index == 1)
+                window.location.href = '/hardware/exportExcel?jsonObject=' + encodeURIComponent(JSON.stringify(rows))
+            }
+            if (index == 1) {
                 rows = $("#software").datagrid("getRows");
-            if (index == 2)
+                window.location.href = '/software/exportExcel?jsonObject=' + encodeURIComponent(JSON.stringify(rows))
+            }
+            if (index == 2) {
                 rows = $("#document").datagrid("getRows");
+                window.location.href = '/document/exportExcel?jsonObject=' + encodeURIComponent(JSON.stringify(rows))
+            }
 
-            window.location.href = '/exportExcel/export?jsonObject=' + encodeURIComponent(JSON.stringify(rows))
         }
 
 
