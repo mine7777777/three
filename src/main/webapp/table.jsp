@@ -146,7 +146,22 @@
         };
 
         function exportQr(val, row, index) {
-            return '<a href="#" class="easyui-linkbutton" onclick="exportByQrId(' + JSON.stringify(row).replace(/\"/g, "'") + ')" style="" data-options="iconCls:icon-search">导出</a>'
+            return '<a href="#" class="easyui-linkbutton" onclick="exportByQrId(' + JSON.stringify(row).replace(/\"/g, "'") + ')" style="" data-options="iconCls:icon-search">导出二维码</a>'
+        }
+
+
+        function expHardExl() {
+            var tab = $('#tabs').tabs('getSelected');
+            var index = $('#tabs').tabs('getTabIndex', tab);
+            var rows;
+            if (index == 0)
+                rows = $("#hardware").datagrid("getRows");
+            if (index == 1)
+                rows = $("#software").datagrid("getRows");
+            if (index == 2)
+                rows = $("#document").datagrid("getRows");
+
+            window.location.href = '/exportExcel/export?jsonObject=' + encodeURIComponent(JSON.stringify(rows))
         }
 
 
@@ -237,8 +252,8 @@
                 $('#software').datagrid('endEdit', index)
             }
             //再获取结束编辑后所选行的row
-            
             var selectedRowAfter = $("#software").datagrid('getSelected');
+
             $.ajax({
                 url: '/software/add',
                 data: selectedRowAfter,
@@ -458,26 +473,29 @@
     </script>
 </head>
 <body>
-<div class="easyui-tabs" id="tabs" style="width:1200px;height:450px;margin-left: 200px">
+<div class="easyui-tabs" id="tabs" style=";height:800px;margin-left: 0px">
     <div title="Hardware" style="">
-        <input class="easyui-textbox" id="txt_hardName" data-options="prompt:'输入name关键字',validType:'text',align:'right'"
-               style="margin: 40px;width:150px;height:32px;">
+        &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp <input class="easyui-textbox" id="txt_hardName"
+                                                   data-options="prompt:'输入name关键字',validType:'text',align:'right'"
+                                                   style="margin: 40px;width:150px;height:32px;">
         <a href="#" class="easyui-linkbutton" onclick="queryHard()" style="margin:5px;margin-left: 7%; "
            data-options="iconCls:'icon-search'">查询</a>
+        <a href="#" class="easyui-linkbutton" onclick="expHardExl()" style="margin:5px;margin-left: 17%; "
+           data-options="iconCls:'icon-print'">导出excel数据</a>
         <table class="easyui-datagrid" id="hardware" title="" style=""
                data-options="singleSelect:true,fitColumns:true,url:'/hardware/search',method:'get',onClickCell: onClickCellHard">
             <thead>
             <tr>
-                <th data-options="field:'id',width:60,align:'center',editor:'text',hidden: true">id</th>
-                <th data-options="field:'name',width:60,align:'center',editor:'text'">name</th>
-                <th data-options="field:'factory',width:60,align:'center',editor:'text'">factory</th>
-                <th data-options="field:'support',width:60,align:'center',editor:'text'">support</th>
-                <th data-options="field:'buytime',width:60,align:'center',editor:'text'">buytime</th>
-                <th data-options="field:'price',width:60,align:'center',editor:'text'">price</th>
-                <th data-options="field:'instruction',width:60,align:'center',editor:'text'">instruction</th>
-                <th data-options="field:'record',width:60,align:'center',editor:'text'">record</th>
-                <th data-options="field:'intime',width:60,align:'center',editor:'text'">intime</th>
-                <th data-options="field:'qrid',width:60,align:'center', formatter:exportQr">qrid</th>
+                <th data-options="field:'id',align:'center',editor:'text',hidden: true">id</th>
+                <th data-options="field:'name',align:'center',editor:'text'">name</th>
+                <th data-options="field:'factory',align:'center',editor:'text'">factory</th>
+                <th data-options="field:'support',align:'center',editor:'text'">support</th>
+                <th data-options="field:'buytime',align:'center',editor:'text'">buytime</th>
+                <th data-options="field:'price',align:'center',editor:'text'">price</th>
+                <th data-options="field:'instruction',align:'center',editor:'text'">instruction</th>
+                <th data-options="field:'record',align:'center',editor:'text'">record</th>
+                <th data-options="field:'intime',align:'center',editor:'text'">intime</th>
+                <th data-options="field:'qrid',align:'center', formatter:exportQr">qrid</th>
                 <th data-options="field:'add',align:'center', formatter:formatterHard">
                     <a href="#" class="easyui-linkbutton" onclick="addHard()" data-options="iconCls:'icon-add'">添加</a>
                 </th>
@@ -487,24 +505,26 @@
     </div>
 
     <div title="Software" style="">
-
-        <input class="easyui-textbox" id="txt_softName" data-options="prompt:'输入name关键字',validType:'text',align:'right'"
-               style="margin: 40px;width:150px;height:32px;">
+        &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp <input class="easyui-textbox" id="txt_softName"
+                                                   data-options="prompt:'输入name关键字',validType:'text',align:'right'"
+                                                   style="margin: 40px;width:150px;height:32px;">
         <a href="#" class="easyui-linkbutton" onclick="querySoft()" style="margin:5px;margin-left: 7%; "
            data-options="iconCls:'icon-search'">查询</a>
+        <a href="#" class="easyui-linkbutton" onclick="expHardExl()" style="margin:5px;margin-left: 17%; "
+           data-options="iconCls:'icon-print'">导出excel数据</a>
         <table class="easyui-datagrid" id="software" title="" style=""
                data-options="singleSelect:true,fitColumns:true,url:'/software/find',method:'get',onClickCell: onClickCellSoft">
             <thead>
             <tr>
-                <th data-options="field:'id',width:60,align:'center',editor:'text',hidden: true">id</th>
-                <th data-options="field:'name',width:60,align:'center',editor:'text'">name</th>
-                <th data-options="field:'version',width:60,align:'center',editor:'text'">version</th>
-                <th data-options="field:'publishtime',width:60,align:'center',editor:'text'">publishtime</th>
-                <th data-options="field:'functions',width:60,align:'center',editor:'text'">functions</th>
-                <th data-options="field:'relation',width:60,align:'center',editor:'text'">relation</th>
-                <th data-options="field:'location',width:60,align:'center',editor:'text'">location</th>
-                <th data-options="field:'instruction',width:60,align:'center',editor:'text'">instruction</th>
-                <th data-options="field:'qrid',width:60,align:'center',formatter:exportQr">qrid</th>
+                <th data-options="field:'id',align:'center',editor:'text',hidden: true">id</th>
+                <th data-options="field:'name',align:'center',editor:'text'" style="padding-left: 5px">name</th>
+                <th data-options="field:'version',align:'center',editor:'text'">version</th>
+                <th data-options="field:'publishtime',align:'center',editor:'text'">publishtime</th>
+                <th data-options="field:'functions',align:'center',editor:'text'">functions</th>
+                <th data-options="field:'relation',align:'center',editor:'text'">relation</th>
+                <th data-options="field:'location',align:'center',editor:'text'">location</th>
+                <th data-options="field:'instruction',align:'center',editor:'text'">instruction</th>
+                <th data-options="field:'qrid',align:'center',formatter:exportQr">qrid</th>
                 <th data-options="field:'add',align:'center',formatter:formatterSoft">
                     <%-- <a href="#" onclick="addSoft()">添加</a>--%>
                     <a href="#" class="easyui-linkbutton" onclick="addSoft()" data-options="iconCls:'icon-add'">添加</a>
@@ -515,26 +535,28 @@
     </div>
 
     <div title="Document" style="padding:0px">
-        <input class="easyui-textbox" id="txt_documentName"
-               data-options="prompt:'输入name关键字',validType:'text',align:'right'"
-               style="margin: 40px;width:150px;height:32px;">
+        &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp<input class="easyui-textbox" id="txt_documentName"
+                                                       data-options="prompt:'输入name关键字',validType:'text',align:'right'"
+                                                       style="margin: 40px;width:150px;height:32px;">
         <a href="#" class="easyui-linkbutton" onclick="queryDocument()" style="margin:5px;margin-left: 7%; "
            data-options="iconCls:'icon-search'">查询</a>
+        <a href="#" class="easyui-linkbutton" onclick="expHardExl()" style="margin:5px;margin-left: 17%; "
+           data-options="iconCls:'icon-print'">导出excel数据</a>
         <table class="easyui-datagrid" id="document" title="" style=""
                data-options="singleSelect:true,fitColumns:true,url:'/document/find',method:'get',onClickCell: onClickCellDocument">
             <thead>
             <tr>
-                <th data-options="field:'id',width:60,align:'center',editor:'text',hidden: true">id</th>
-                <th data-options="field:'name',width:60,align:'center',editor:'text'">name</th>
-                <th data-options="field:'version',width:60,align:'center',editor:'text'">version</th>
-                <th data-options="field:'createtime',width:60,align:'center',editor:'text'">createtime</th>
-                <th data-options="field:'modifytime',width:60,align:'center',editor:'text'">modifytime</th>
-                <th data-options="field:'publish',width:60,align:'center',editor:'text'">publish</th>
-                <th data-options="field:'application',width:60,align:'center',editor:'text'">application</th>
-                <th data-options="field:'secret',width:60,align:'center',editor:'text'">secret</th>
-                <th data-options="field:'cipher',width:60,align:'center',editor:'text'">cipher</th>
-                <th data-options="field:'location',width:60,align:'center',editor:'text'">location</th>
-                <th data-options="field:'qrid',width:60,align:'center',formatter:exportQr">qrid</th>
+                <th data-options="field:'id',align:'center',editor:'text',hidden: true">id</th>
+                <th data-options="field:'name',align:'center',editor:'text'">name</th>
+                <th data-options="field:'version',align:'center',editor:'text'">version</th>
+                <th data-options="field:'createtime',align:'center',editor:'text'">createtime</th>
+                <th data-options="field:'modifytime',align:'center',editor:'text'">modifytime</th>
+                <th data-options="field:'publish',align:'center',editor:'text'">publish</th>
+                <th data-options="field:'application',align:'center',editor:'text'">application</th>
+                <th data-options="field:'secret',align:'center',editor:'text'">secret</th>
+                <th data-options="field:'cipher',align:'center',editor:'text'">cipher</th>
+                <th data-options="field:'location',align:'center',editor:'text'">location</th>
+                <th data-options="field:'qrid',align:'center',formatter:exportQr">qrid</th>
                 <th data-options="field:'add',align:'center',formatter:formatterDocument">
                     <%--<a href="#" onclick="addDocument()">添加</a>--%>
                     <a href="#" class="easyui-linkbutton" onclick="addDocument()"
