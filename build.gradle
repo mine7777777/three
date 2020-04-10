@@ -41,4 +41,5 @@ dependencies {
     compile group: 'org.fusesource', name: 'sigar', version: '1.6.4'
     compile group: 'com.google.zxing', name: 'javase', version: '3.3.0'
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.8'
+    compile group: 'net.sourceforge.jexcelapi', name: 'jxl', version: '2.6.12'
 }
