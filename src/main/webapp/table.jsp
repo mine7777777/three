@@ -12,6 +12,7 @@
     <script>
         //为datagrid定义 editCell方法
         $.extend($.fn.datagrid.methods, {
+
             editCell: function (jq, param) {
                 return jq.each(function () {
                     var opts = $(this).datagrid('options');
